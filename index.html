@@ -315,67 +315,63 @@
             }, 5000);
         }
         
-        // Enhanced email validation function
+        // Enhanced but customer-friendly email validation function
         function validateEmail(input) {
-            const email = input.value;
-            const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const email = input.value.trim();
             
             // Clear any previous custom validity
             input.setCustomValidity('');
             
-            if (email && !emailRegex.test(email)) {
+            // If empty, let HTML5 required attribute handle it
+            if (!email) {
+                return true;
+            }
+            
+            // More permissive regex that accepts most valid email formats
+            // This regex is based on RFC 5322 but simplified for practical use
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (!emailRegex.test(email)) {
                 input.setCustomValidity('Please enter a valid email address (e.g., example@domain.com)');
                 return false;
             }
             
-            // Additional checks for common invalid patterns
-            if (email) {
-                const parts = email.split('@');
-                if (parts.length !== 2) {
-                    input.setCustomValidity('Email must contain exactly one @ symbol');
-                    return false;
-                }
-                
-                const [localPart, domainPart] = parts;
-                
-                // Check local part (before @)
-                if (localPart.length < 1 || localPart.length > 64) {
-                    input.setCustomValidity('Email address is invalid');
-                    return false;
-                }
-                
-                // Check domain part (after @)
-                if (domainPart.length < 3) {
-                    input.setCustomValidity('Domain name is too short (e.g., example.com)');
-                    return false;
-                }
-                
-                // Check if domain has at least one dot and proper TLD
-                const domainParts = domainPart.split('.');
-                if (domainParts.length < 2) {
-                    input.setCustomValidity('Domain must contain at least one dot (e.g., example.com)');
-                    return false;
-                }
-                
-                // Check TLD (last part after final dot)
-                const tld = domainParts[domainParts.length - 1];
-                if (tld.length < 2) {
-                    input.setCustomValidity('Top-level domain is too short (e.g., .com, .org)');
-                    return false;
-                }
-                
-                // Check for consecutive dots
-                if (domainPart.includes('..')) {
-                    input.setCustomValidity('Domain cannot contain consecutive dots');
-                    return false;
-                }
-                
-                // Check if domain starts or ends with dot or hyphen
-                if (domainPart.startsWith('.') || domainPart.endsWith('.') || 
-                    domainPart.startsWith('-') || domainPart.endsWith('-')) {
-                    input.setCustomValidity('Domain format is invalid');
-                    return false;
-                }
+            // Only check for obvious invalid patterns to avoid false positives
+            const parts = email.split('@');
+            if (parts.length !== 2) {
+                input.setCustomValidity('Email must contain exactly one @ symbol');
+                return false;
+            }
+            
+            const [localPart, domainPart] = parts;
+            
+            // Very basic checks to avoid obvious errors
+            if (localPart.length < 1) {
+                input.setCustomValidity('Email address cannot be empty before @');
+                return false;
+            }
+            
+            if (domainPart.length < 3) {
+                input.setCustomValidity('Domain name is too short');
+                return false;
+            }
+            
+            // Check if domain has at least one dot
+            if (!domainPart.includes('.')) {
+                input.setCustomValidity('Domain must contain at least one dot (e.g., example.com)');
+                return false;
+            }
+            
+            // Check for consecutive dots (which are invalid)
+            if (domainPart.includes('..')) {
+                input.setCustomValidity('Domain cannot contain consecutive dots');
+                return false;
+            }
+            
+            // Check if domain starts or ends with dot
+            if (domainPart.startsWith('.') || domainPart.endsWith('.')) {
+                input.setCustomValidity('Domain cannot start or end with a dot');
+                return false;
             }
             
             return true;
@@ -440,7 +436,9 @@
 
     <!-- Hidden form for Netlify to detect -->
     <form name="waitlist" netlify netlify-honeypot="bot-field" hidden>
-        <input type="email" name="email" />
+        <input type="email" name="email" 
+               pattern="[^\s@]+@[^\s@]+\.[^\s@]+" 
+               required />
     </form>
 
 </body>
