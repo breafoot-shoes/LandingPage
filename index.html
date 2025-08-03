@@ -377,96 +377,17 @@
             return true;
         }
         
-        // Anti-duplicate submission utilities
-        const STORAGE_KEY = 'stellan_waitlist_submissions';
-        const COOLDOWN_PERIOD = 60000; // 1 minute cooldown
-        
-        function getSubmittedEmails() {
-            try {
-                const stored = localStorage.getItem(STORAGE_KEY);
-                return stored ? JSON.parse(stored) : {};
-            } catch (e) {
-                return {};
-            }
-        }
-        
-        function addSubmittedEmail(email) {
-            try {
-                const submissions = getSubmittedEmails();
-                submissions[email.toLowerCase()] = Date.now();
-                localStorage.setItem(STORAGE_KEY, JSON.stringify(submissions));
-            } catch (e) {
-                console.warn('Unable to save submission record:', e);
-            }
-        }
-        
-        function isEmailRecentlySubmitted(email) {
-            const submissions = getSubmittedEmails();
-            const lastSubmission = submissions[email.toLowerCase()];
-            if (!lastSubmission) return false;
-            
-            const timeSinceSubmission = Date.now() - lastSubmission;
-            return timeSinceSubmission < COOLDOWN_PERIOD;
-        }
-        
-        function getRemainingCooldown(email) {
-            const submissions = getSubmittedEmails();
-            const lastSubmission = submissions[email.toLowerCase()];
-            if (!lastSubmission) return 0;
-            
-            const timeSinceSubmission = Date.now() - lastSubmission;
-            const remaining = COOLDOWN_PERIOD - timeSinceSubmission;
-            return Math.max(0, remaining);
-        }
-        
-        function formatCooldownTime(milliseconds) {
-            const seconds = Math.ceil(milliseconds / 1000);
-            if (seconds < 60) {
-                return `${seconds} second${seconds !== 1 ? 's' : ''}`;
-            }
-            const minutes = Math.ceil(seconds / 60);
-            return `${minutes} minute${minutes !== 1 ? 's' : ''}`;
-        }
-        
-        function showConfirmationDialog(email) {
-            return new Promise((resolve) => {
-                const isResubmission = getSubmittedEmails()[email.toLowerCase()];
-                const message = isResubmission 
-                    ? `You've already submitted "${email}" to our waitlist. Would you like to update your submission?`
-                    : `Join the waitlist with "${email}"?`;
-                
-                const confirmed = confirm(message);
-                resolve(confirmed);
-            });
-        }
-        
         // Handle form submission
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form[name="waitlist"]');
             if (form) {
-                form.addEventListener('submit', async function(e) {
+                form.addEventListener('submit', function(e) {
                     e.preventDefault(); // Prevent default form submission
                     
                     // Additional email validation before submission
                     const emailInput = form.querySelector('input[name="email"]');
                     if (!validateEmail(emailInput)) {
                         emailInput.reportValidity();
-                        return;
-                    }
-                    
-                    const email = emailInput.value.trim();
-                    
-                    // Check for recent submission (cooldown)
-                    if (isEmailRecentlySubmitted(email)) {
-                        const remaining = getRemainingCooldown(email);
-                        const timeStr = formatCooldownTime(remaining);
-                        showNotification(`Please wait ${timeStr} before submitting again.`, 'error');
-                        return;
-                    }
-                    
-                    // Show confirmation dialog
-                    const confirmed = await showConfirmationDialog(email);
-                    if (!confirmed) {
                         return;
                     }
                     
@@ -488,8 +409,6 @@
                     })
                     .then(response => {
                         if (response.ok) {
-                            // Record successful submission
-                            addSubmittedEmail(email);
                             showNotification('Successfully joined the waitlist! Thank you for your interest.', 'success');
                             form.reset();
                         } else {
@@ -511,21 +430,6 @@
                         }
                     });
                 });
-                
-                // Real-time feedback for email input
-                const emailInput = form.querySelector('input[name="email"]');
-                if (emailInput) {
-                    emailInput.addEventListener('input', function() {
-                        const email = this.value.trim();
-                        if (email && isEmailRecentlySubmitted(email)) {
-                            const remaining = getRemainingCooldown(email);
-                            const timeStr = formatCooldownTime(remaining);
-                            this.setCustomValidity(`This email was recently submitted. Please wait ${timeStr}.`);
-                        } else {
-                            validateEmail(this);
-                        }
-                    });
-                }
             }
         });
     </script>
