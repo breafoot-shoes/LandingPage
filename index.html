@@ -343,7 +343,7 @@
                             showNotification('Successfully joined the waitlist! Thank you for your interest.', 'success');
                             form.reset();
                         } else {
-                            showNotification('Something went wrong. Please try again later.', 'error');
+                            showNotification(`Error ${response.status}: Please try again later.`, 'error');
                         }
                     })
                     .catch(error => {
