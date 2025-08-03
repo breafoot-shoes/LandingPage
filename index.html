@@ -226,7 +226,7 @@
                     The Stellan Commuter Shoe is launching soon on Kickstarter. Join our private waitlist to be notified on launch day and gain exclusive access to a limited <strong>Super Early Bird discount</strong> — our thank you for being a foundational part of our journey.
                 </p>
                 <!-- Netlify Forms Integration -->
-                <form name="waitlist" method="POST" data-netlify="true" class="flex flex-col md:flex-row justify-center gap-2 max-w-lg mx-auto">
+                <form name="waitlist" method="POST" data-netlify="true" action="/" class="flex flex-col md:flex-row justify-center gap-2 max-w-lg mx-auto">
                     <input type="hidden" name="form-name" value="waitlist" />
                     <input type="email" name="email" placeholder="Enter your email address" required 
                            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" 
@@ -331,9 +331,12 @@
                     submitButton.disabled = true;
                     
                     // Submit form via fetch
-                    fetch(form.action || window.location.pathname, {
+                    fetch('/', {
                         method: 'POST',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: new URLSearchParams(formData).toString()
                     })
                     .then(response => {
                         if (response.ok) {
@@ -361,6 +364,11 @@
             }
         });
     </script>
+
+    <!-- Hidden form for Netlify to detect -->
+    <form name="waitlist" netlify netlify-honeypot="bot-field" hidden>
+        <input type="email" name="email" />
+    </form>
 
 </body>
 </html>
