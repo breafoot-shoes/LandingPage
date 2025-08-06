@@ -103,17 +103,13 @@
                 
                 <!-- Design Principles Grid -->
                 <div class="grid md:grid-cols-2 gap-12">
+
                     <!-- Anatomical Fit -->
                     <div class="flex items-center gap-6">
                         <div class="flex-shrink-0">
-                            <div class="w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center">
+                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center">
                                 <!-- Wide Toe Box Icon -->
-                                <svg class="w-12 h-12 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-                                    <ellipse cx="50" cy="50" rx="35" ry="15" />
-                                    <line x1="20" y1="50" x2="20" y2="60" />
-                                    <line x1="80" y1="50" x2="80" y2="60" />
-                                    <text x="50" y="75" text-anchor="middle" font-size="8" fill="currentColor">Wide Toe Box</text>
-                                </svg>
+                                <img src="image/feature/wide-toe-bex.png" alt="Anatomical Fit" class="w-32 h-32 object-contain">
                             </div>
                         </div>
                         <div class="text-left">
@@ -121,18 +117,13 @@
                             <p class="text-[var(--color-text-secondary)]">The spacious toe box allows your toes to spread naturally, increasing comfort and stability.</p>
                         </div>
                     </div>
-
+                    
                     <!-- Zero-Drop Platform -->
                     <div class="flex items-center gap-6">
                         <div class="flex-shrink-0">
-                            <div class="w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center">
+                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center">
                                 <!-- Zero Heel-to-Toe Drop Icon -->
-                                <svg class="w-12 h-12 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M15 60 Q30 45 50 50 Q70 55 85 60" />
-                                    <line x1="15" y1="60" x2="15" y2="70" />
-                                    <line x1="85" y1="60" x2="85" y2="70" />
-                                    <text x="50" y="80" text-anchor="middle" font-size="8" fill="currentColor">Zero Heel-to-Toe Drop</text>
-                                </svg>
+                                <img src="image/feature/zero-drop.png" alt="Zero-Drop Platform" class="w-32 h-32 object-contain">
                             </div>
                         </div>
                         <div class="text-left">
@@ -140,17 +131,13 @@
                             <p class="text-[var(--color-text-secondary)]">Designed to promote a natural gait, our shoes ensure your heel and toes are on the same level, reducing strain on your posture.</p>
                         </div>
                     </div>
-
+                    
                     <!-- Flexible -->
                     <div class="flex items-center gap-6">
                         <div class="flex-shrink-0">
-                            <div class="w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center">
+                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center">
                                 <!-- Flexible Icon -->
-                                <svg class="w-12 h-12 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M20 50 Q35 30 50 50 Q65 70 80 50" />
-                                    <line x1="20" y1="50" x2="25" y2="55" />
-                                    <text x="50" y="75" text-anchor="middle" font-size="8" fill="currentColor">Flexible</text>
-                                </svg>
+                                <img src="image/feature/flexible.png" alt="Flexible" class="w-32 h-32 object-contain">
                             </div>
                         </div>
                         <div class="text-left">
@@ -158,24 +145,13 @@
                             <p class="text-[var(--color-text-secondary)]">Our shoes bend with your feet like no other, allowing for a full range of motion and a liberated walking experience.</p>
                         </div>
                     </div>
-
+                    
                     <!-- Stitchdown Construction -->
                     <div class="flex items-center gap-6">
                         <div class="flex-shrink-0">
-                            <div class="w-24 h-24 bg-gray-900 rounded-full flex items-center justify-center">
+                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center">
                                 <!-- Stitchdown Construction Icon -->
-                                <svg class="w-12 h-12 text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-                                    <path d="M20 60 L80 60" />
-                                    <path d="M20 65 L80 65" />
-                                    <!-- Stitching pattern -->
-                                    <circle cx="25" cy="62.5" r="1" fill="currentColor" />
-                                    <circle cx="35" cy="62.5" r="1" fill="currentColor" />
-                                    <circle cx="45" cy="62.5" r="1" fill="currentColor" />
-                                    <circle cx="55" cy="62.5" r="1" fill="currentColor" />
-                                    <circle cx="65" cy="62.5" r="1" fill="currentColor" />
-                                    <circle cx="75" cy="62.5" r="1" fill="currentColor" />
-                                    <text x="50" y="80" text-anchor="middle" font-size="8" fill="currentColor">Stitchdown Construction</text>
-                                </svg>
+                                <img src="image/feature/stick.png" alt="Stitchdown Construction" class="w-32 h-32 object-contain">
                             </div>
                         </div>
                         <div class="text-left">
@@ -347,7 +323,7 @@
             
             // More permissive regex that accepts most valid email formats
             // This regex is based on RFC 5322 but simplified for practical use
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+/;
             
             if (!emailRegex.test(email)) {
                 input.setCustomValidity('Please enter a valid email address (e.g., example@domain.com)');
