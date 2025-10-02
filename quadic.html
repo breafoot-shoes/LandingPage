@@ -42,7 +42,7 @@
 
     <!-- 1. Header -->
     <header class="py-6 px-8">
-        <div class="container mx-auto flex justify-between items-center">
+        <div class="w-full mx-auto px-6 flex justify-between items-center">
             <h1 class="text-3xl font-bold tracking-tighter">Quadic</h1>
             <a href="#subscribe" class="bg-[var(--color-accent)] text-white font-semibold py-2 px-5 rounded-full hover:bg-[var(--color-accent-dark)] transition duration-300 text-sm">
                 Join The Waitlist
@@ -50,27 +50,73 @@
         </div>
     </header>
 
-    <main class="container mx-auto px-8">
+    <main class="w-full mx-auto px-6">
 
         <!-- 2. Hero Section -->
         <section class="text-center py-20 md:py-32">
-            <h2 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Your Foundation, Redefined.</h2>
-            <p class="max-w-3xl mx-auto text-lg md:text-xl text-[var(--color-text-secondary)] mb-10">
-                A new standard in professional footwear has arrived. Meticulously engineered for anatomical comfort and crafted with timeless style, Quadic is the last professional shoe you'll ever want to own.
+            <h2 class="text-4xl md:text-6xl font-bold leading-tight mb-4">Zero Drop. Zero Compromise.</h2>
+            <p class="w-full mx-auto text-lg md:text-xl text-[var(--color-text-secondary)] mb-10 px-6">
+                Experience true anatomical freedom with our revolutionary zero-drop platform. Where natural foot function meets professional elegance, Quadic delivers the comfort your body craves without sacrificing the style your career demands.
             </p>
-            <div class="flex justify-center">
-                <div class="w-full">
-                      <!-- Main Product Image -->
-                      <div class="w-full aspect-[4/3] rounded-lg shadow-2xl" 
-                           style="background-image: url('image/six-design.jpg'); background-size: contain; background-position: center; background-repeat: no-repeat;">
-                      </div>
-                  </div>
+            <div class="flex justify-center w-full">
+                <div class="flex items-start w-full">
+                    <!-- Main Product Video (3:4 aspect ratio) - 占总宽度的60% -->
+                    <div class="flex-[3] aspect-[3/4] rounded-lg overflow-hidden">
+                        <video autoplay muted loop class="w-full h-full object-cover">
+                            <source src="image/product-image/main-page.mov" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    
+                    <!-- Right side: Two 1:1 image carousels - 占总宽度的40% -->
+                    <div class="flex-[2] flex flex-col">
+                        <!-- Product Images Carousel (1:1) - 占右侧高度的50% -->
+                        <div class="flex-1 aspect-square rounded-lg overflow-hidden relative">
+                            <img id="product-carousel-img" src="image/product-image/oblique-side11.png" alt="Product Image" class="w-full h-full object-contain transition-opacity duration-500">
+                        </div>
+                        
+                        <!-- Leather Images Carousel (1:1) - 占右侧高度的50% -->
+                        <div class="flex-1 aspect-square rounded-lg overflow-hidden relative">
+                            <img id="leather-carousel-img" src="image/leather-waterdroplet.png" alt="Leather Image" class="w-full h-full object-cover transition-opacity duration-500">
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+            <script>
+                // Product images carousel
+                const productImages = [
+                    'image/product-image/oblique-side11.png',
+                    'image/product-image/side_11.jpg',
+                    'image/product-image/pair_11.jpg'
+                ];
+                
+                // Leather image - static display
+                // leatherImages轮播已移除，保持显示leather-waterdroplet.png
+                
+                let productIndex = 0;
+                
+                // Function to change product image
+                function changeProductImage() {
+                    const img = document.getElementById('product-carousel-img');
+                    img.style.opacity = '0';
+                    setTimeout(() => {
+                        productIndex = (productIndex + 1) % productImages.length;
+                        img.src = productImages[productIndex];
+                        img.style.opacity = '1';
+                    }, 250);
+                }
+                
+                // Start product carousel only - change every 2 seconds
+                setInterval(changeProductImage, 2000);
+            </script>
         </section>
+
+
 
         <!-- 3. The Problem Section -->
         <section class="py-16 md:py-24">
-            <div class="text-center max-w-3xl mx-auto">
+            <div class="text-center w-full mx-auto px-6">
                 <h3 class="text-sm font-bold uppercase tracking-widest text-[var(--color-accent)] mb-4">THE SILENT COMPROMISE OF THE MODERN PROFESSIONAL</h3>
                 <p class="text-3xl md:text-4xl font-bold">
                     Your footwear is limiting more than just your feet. It's limiting your <span style="text-decoration-color: var(--color-accent);" class="underline decoration-2">potential.</span>
@@ -97,7 +143,7 @@
 
         <!-- 4. The Solution Section -->
         <section class="py-16 md:py-24 bg-white rounded-lg shadow-lg">
-            <div class="text-center max-w-4xl mx-auto px-12">
+            <div class="text-center w-full mx-auto px-12">
                 <h3 class="text-sm font-bold uppercase tracking-widest text-[var(--color-accent)] mb-4">OUR DESIGN PRINCIPLES</h3>
                 <h2 class="text-3xl md:text-4xl font-bold mb-16">Where Craftsmanship Meets Biology.</h2>
                 
@@ -107,9 +153,9 @@
                     <!-- Anatomical Fit -->
                     <div class="flex items-center gap-6">
                         <div class="flex-shrink-0">
-                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center">
+                            <div class="w-[10vw] h-[10vw] bg-white rounded-full flex items-center justify-center">
                                 <!-- Wide Toe Box Icon -->
-                                <img src="image/feature/wide-toe-bex.png" alt="Anatomical Fit" class="w-32 h-32 object-contain">
+                                <img src="image/feature/wide-toe-bex.png" alt="Anatomical Fit" class="w-[10vw] h-[10vw] object-contain">
                             </div>
                         </div>
                         <div class="text-left">
@@ -121,9 +167,9 @@
                     <!-- Zero-Drop Platform -->
                     <div class="flex items-center gap-6">
                         <div class="flex-shrink-0">
-                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center">
+                            <div class="w-[10vw] h-[10vw] bg-white rounded-full flex items-center justify-center">
                                 <!-- Zero Heel-to-Toe Drop Icon -->
-                                <img src="image/feature/zero-drop.png" alt="Zero-Drop Platform" class="w-32 h-32 object-contain">
+                                <img src="image/feature/zero-drop.png" alt="Zero-Drop Platform" class="w-[10vw] h-[10vw] object-contain">
                             </div>
                         </div>
                         <div class="text-left">
@@ -135,9 +181,9 @@
                     <!-- Flexible -->
                     <div class="flex items-center gap-6">
                         <div class="flex-shrink-0">
-                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center">
+                            <div class="w-[10vw] h-[10vw] bg-white rounded-full flex items-center justify-center">
                                 <!-- Flexible Icon -->
-                                <img src="image/feature/flexible.png" alt="Flexible" class="w-32 h-32 object-contain">
+                                <img src="image/feature/flexible.png" alt="Flexible" class="w-[10vw] h-[10vw] object-contain">
                             </div>
                         </div>
                         <div class="text-left">
@@ -149,9 +195,9 @@
                     <!-- Stitchdown Construction -->
                     <div class="flex items-center gap-6">
                         <div class="flex-shrink-0">
-                            <div class="w-32 h-32 bg-white rounded-full flex items-center justify-center">
+                            <div class="w-[10vw] h-[10vw] bg-white rounded-full flex items-center justify-center">
                                 <!-- Stitchdown Construction Icon -->
-                                <img src="image/feature/stick.png" alt="Stitchdown Construction" class="w-32 h-32 object-contain">
+                                <img src="image/feature/stick.png" alt="Stitchdown Construction" class="w-[10vw] h-[10vw] object-contain">
                             </div>
                         </div>
                         <div class="text-left">
@@ -163,45 +209,15 @@
             </div>
         </section>
 
-        <!-- 5. Materials Showcase Section -->
-        <section class="py-16 md:py-24">
-            <div class="text-center max-w-4xl mx-auto">
-                <h3 class="text-sm font-bold uppercase tracking-widest text-[var(--color-accent)] mb-4">PREMIUM MATERIALS</h3>
-                <h2 class="text-3xl md:text-4xl font-bold mb-16">Crafted from the Finest Materials.</h2>
-                
-                <!-- Materials Grid -->
-                <div class="grid md:grid-cols-3 gap-8">
-                    <!-- Brown Leather -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <img src="image/brown-leather.png" alt="Premium Full-Grain Leather" class="w-full h-48 object-cover rounded-lg mb-4">
-                        <h4 class="font-bold text-lg mb-2">Premium Full-Grain Leather</h4>
-                        <p class="text-[var(--color-text-secondary)]">Sourced from worldwide's finest tanneries, our full-grain leather develops a beautiful patina over time.</p>
-                    </div>
-                    
-                    <!-- Water Resistant -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <img src="image/leather-waterdroplet.png" alt="Water-Resistant Treatment" class="w-full h-48 object-cover rounded-lg mb-4">
-                        <h4 class="font-bold text-lg mb-2">Water-Resistant Treatment</h4>
-                        <p class="text-[var(--color-text-secondary)]">Advanced treatment ensures your shoes stay protected while maintaining breathability.</p>
-                    </div>
-                    
-                    <!-- Red Leather -->
-                    <div class="bg-white p-6 rounded-lg shadow-sm">
-                        <img src="image/red-leather.png" alt="Artisan Craftsmanship" class="w-full h-48 object-cover rounded-lg mb-4">
-                        <h4 class="font-bold text-lg mb-2">Artisan Craftsmanship</h4>
-                        <p class="text-[var(--color-text-secondary)]">Each pair is meticulously handcrafted by skilled artisans with decades of experience.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+
         
         <!-- 6. Community Engagement Section -->
         <section class="py-20 bg-gradient-to-br from-gray-50 to-white">
-            <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="w-full mx-auto px-6 text-center">
                 <h2 class="text-4xl md:text-5xl font-bold tracking-tighter mb-8 text-[var(--color-text-primary)]">
                     We're Building Quadic with You.
                 </h2>
-                <p class="text-xl text-[var(--color-text-secondary)] leading-relaxed max-w-3xl mx-auto mb-8">
+                <p class="text-xl text-[var(--color-text-secondary)] leading-relaxed w-full mx-auto mb-8 px-6">
                     Our design process is open and transparent. We believe the best products are born from conversation. Right now, our community on Reddit is helping us make the final decision on our launch collection's design and color palette. 
                     <a href="https://www.reddit.com/r/barefootshoestalk/comments/1mjz3yc/design_feedback_my_data_analysis_on_shoe/" class="text-[var(--color-accent)] hover:text-[var(--color-accent-dark)] font-semibold underline decoration-2 underline-offset-4 transition-colors duration-200" target="_blank" rel="noopener noreferrer">
                         Click here to join the discussion and cast your vote!
@@ -212,7 +228,7 @@
 
         <!-- 7. Final Call-to-Action / Subscription Section -->
         <section id="subscribe" class="text-center py-20 md:py-32">
-             <div class="max-w-2xl mx-auto">
+             <div class="w-full mx-auto px-6">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">
                     Be the First.
                 </h2>
